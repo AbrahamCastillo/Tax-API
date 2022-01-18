@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Helper;
 using Models;
-using System.Linq;
 
 namespace Tax_API.Controllers
 {
@@ -16,16 +15,7 @@ namespace Tax_API.Controllers
         public TaxCallerController()
         {
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "5da2f821eee4035db4771edab942a4cc");
-            LoadTaxCalculators();
-        }
-
-        private void LoadTaxCalculators()
-        {
-            using (StreamReader r = new StreamReader("./Tax Calculators/TaxCalculators.json"))
-            {
-                string json = r.ReadToEnd();
-                taxCalculatorList = JsonConvert.DeserializeObject<List<TaxCalculator>>(json);
-            }
+            taxCalculatorList = Helper.Helper.LoadTaxCalculators();
         }
 
         [HttpGet(Name = "GetTaxRate")]
@@ -43,18 +33,8 @@ namespace Tax_API.Controllers
         public async Task<IActionResult> CalculateTax(string country, string zipCode, string state, string destinationCountry, string destinationZip, string destinationState, string amount, string shipping, string calculatorId)
         {
             selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
-            var content = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("from_country", country),
-                new KeyValuePair<string, string>("from_zip", zipCode),
-                new KeyValuePair<string, string>("from_state", state),
-                new KeyValuePair<string, string>("to_country", destinationCountry),
-                new KeyValuePair<string, string>("to_zip", destinationZip),
-                new KeyValuePair<string, string>("to_state", destinationState),
-                new KeyValuePair<string, string>("amount", amount),
-                new KeyValuePair<string, string>("shipping", shipping)
-            });
-            var response = await client.PostAsync($"{selectedCalculator.Path}{selectedCalculator.TaxParams}",content);
+            var parameters = Helper.Helper.CreateTaxCalculatorParameters(country, zipCode, state, destinationCountry, destinationZip, destinationState, amount, shipping);
+            var response = await client.PostAsync($"{selectedCalculator?.Path}{selectedCalculator?.TaxParams}", parameters);
 
             if (response.IsSuccessStatusCode)
                 return Ok(await response.Content.ReadAsStringAsync());
