@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Helper\Helper\Helper.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\HelperTool\Helper.csproj" />
+    <ProjectReference Include="..\Models\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>

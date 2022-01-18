@@ -18,7 +18,7 @@ namespace Tax_API.Controllers
             taxCalculatorList = Helper.Helper.LoadTaxCalculators();
         }
 
-        [HttpGet(Name = "GetTaxRate")]
+        [HttpGet("taxRate")]
         public async Task<IActionResult> GetTaxRate(string country, string zipCode, string calculatorId)
         {
             selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
@@ -29,7 +29,7 @@ namespace Tax_API.Controllers
             else return BadRequest("There was an error ");
         }
 
-        [HttpPost(Name = "PostCalculateTax")]
+        [HttpGet("calculateTax")]
         public async Task<IActionResult> CalculateTax(string country, string zipCode, string state, string destinationCountry, string destinationZip, string destinationState, string amount, string shipping, string calculatorId)
         {
             selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
