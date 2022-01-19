@@ -22,10 +22,13 @@ namespace TaxClient
             {
                 comboBox1.Items.Add(new ListViewItem(taxCalculator.Id.ToString(),taxCalculator.Name));
             }
-            comboBox1.DataSource = taxCalculatorList;
-            comboBox1.DisplayMember = "Name";
-            comboBox1.ValueMember = "Id";
-            comboBox1.SelectedIndex = 0;
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.DataSource = taxCalculatorList;
+                comboBox1.DisplayMember = "Name";
+                comboBox1.ValueMember = "Id";
+                comboBox1.SelectedIndex = 0;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,10 +39,17 @@ namespace TaxClient
 
         private void button1_Click(object sender, EventArgs e)
         {
-            comboBox1.Enabled = false;
-            button1.Enabled = false;
-            button2.Enabled = true;
-            tabControl1.Enabled = true;
+            if (comboBox1.Items.Count > 0)
+            {
+                comboBox1.Enabled = false;
+                button1.Enabled = false;
+                button2.Enabled = true;
+                tabControl1.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show("No Calculators loaded please verify the source file","Error", MessageBoxButtons.OK);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -52,7 +62,14 @@ namespace TaxClient
 
         private void button3_Click(object sender, EventArgs e)
         {
-            GetTaxRate();
+            if (textBox1.Text != "" && textBox2.Text != "")
+            {
+                GetTaxRate();
+            }
+            else
+            {
+                MessageBox.Show("Please fill the Country AND Zip Code", "Error", MessageBoxButtons.OK);
+            }
         }
 
         public async void GetTaxRate()
@@ -74,7 +91,17 @@ namespace TaxClient
 
         private void button4_Click(object sender, EventArgs e)
         {
-            GetTaxes();
+            if (textBox4.Text != "" && textBox5.Text != "" &&
+                textBox6.Text != "" && textBox7.Text != "" && textBox8.Text != "" &&
+                textBox9.Text != "" && textBox10.Text != "" && textBox11.Text != "")
+            {
+                GetTaxes();
+            }
+            else
+            {
+                MessageBox.Show("Please fill ALL the fields", "Error", MessageBoxButtons.OK);
+            }
+
         }
     }
 }

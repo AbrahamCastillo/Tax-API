@@ -14,11 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helper", "Helper", "{546F76
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{C1CCB71C-F4CE-4EA3-AA9A-1E3C428EE33E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "HelperTool\Helper.csproj", "{0F38330B-B7C0-4019-9A08-B54BDF513ADA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper", "HelperTool\Helper.csproj", "{0F38330B-B7C0-4019-9A08-B54BDF513ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models\Models.csproj", "{E010DBE4-2496-4EEA-A56C-65ECED3D4865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models\Models.csproj", "{E010DBE4-2496-4EEA-A56C-65ECED3D4865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxClient", "TaxClient\TaxClient.csproj", "{D100C8F5-EF34-4944-9329-FC9D541A8F9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxClient", "TaxClient\TaxClient.csproj", "{D100C8F5-EF34-4944-9329-FC9D541A8F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxAPITests", "TaxAPITests\TaxAPITests.csproj", "{25278827-236A-4523-A9DC-E8EE69B49834}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{D100C8F5-EF34-4944-9329-FC9D541A8F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D100C8F5-EF34-4944-9329-FC9D541A8F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D100C8F5-EF34-4944-9329-FC9D541A8F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25278827-236A-4523-A9DC-E8EE69B49834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25278827-236A-4523-A9DC-E8EE69B49834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25278827-236A-4523-A9DC-E8EE69B49834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25278827-236A-4523-A9DC-E8EE69B49834}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

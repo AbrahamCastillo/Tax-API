@@ -5,12 +5,5 @@
     "Path": "https://api.taxjar.com/v2/",
     "TaxParams": "taxes",
     "TaxRateParams": "rates?zip={0}&country={1}"
-  },
-  {
-    "Id": 2,
-    "Name": "Test2",
-    "Path": "https://api.taxjar.com/v2/",
-    "TaxParams": "taxes?from_country={0}&from_zip={1}&from_state={2}&to_country={3}&to_zip={4}&to_state={5}&amount={6}&shipping={7}",
-    "TaxRateParams": "rates?zip={0}&country={1}"
   }
 ]

@@ -21,24 +21,38 @@ namespace Tax_API.Controllers
         [HttpGet("taxRate")]
         public async Task<IActionResult> GetTaxRate(string country, string zipCode, string calculatorId)
         {
-            selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
-            var response = await client.GetAsync(String.Format($"{selectedCalculator.Path}{selectedCalculator.TaxRateParams}",zipCode,country));
+            try
+            {
+                selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
+                var response = await client.GetAsync(String.Format($"{selectedCalculator.Path}{selectedCalculator.TaxRateParams}", zipCode, country));
 
-            if (response.IsSuccessStatusCode)
-                return Ok(await response.Content.ReadAsStringAsync());
-            else return BadRequest("There was an error ");
+                if (response.IsSuccessStatusCode)
+                    return Ok(await response.Content.ReadAsStringAsync());
+                else return BadRequest("There was an error ");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"There was an error: {ex.Message}");
+            }
         }
 
         [HttpGet("calculateTax")]
         public async Task<IActionResult> CalculateTax(string country, string zipCode, string state, string destinationCountry, string destinationZip, string destinationState, string amount, string shipping, string calculatorId)
         {
-            selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
-            var parameters = Helper.Helper.CreateTaxCalculatorParameters(country, zipCode, state, destinationCountry, destinationZip, destinationState, amount, shipping);
-            var response = await client.PostAsync($"{selectedCalculator?.Path}{selectedCalculator?.TaxParams}", parameters);
+            try
+            {
+                selectedCalculator = taxCalculatorList.FirstOrDefault(a => a.Id.ToString() == calculatorId);
+                var parameters = Helper.Helper.CreateTaxCalculatorParameters(country, zipCode, state, destinationCountry, destinationZip, destinationState, amount, shipping);
+                var response = await client.PostAsync($"{selectedCalculator?.Path}{selectedCalculator?.TaxParams}", parameters);
 
-            if (response.IsSuccessStatusCode)
-                return Ok(await response.Content.ReadAsStringAsync());
-            else return BadRequest("There was an error ");
+                if (response.IsSuccessStatusCode)
+                    return Ok(await response.Content.ReadAsStringAsync());
+                else return BadRequest("There was an error ");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"There was an error: {ex.Message}");
+            }
         }
     }
 }
