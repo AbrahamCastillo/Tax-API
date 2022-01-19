@@ -74,20 +74,34 @@ namespace TaxClient
 
         public async void GetTaxRate()
         {
-            var callPath = String.Format("https://localhost:7155/TaxCaller/taxRate?zipCode={0}&country={1}&calculatorId={2}", textBox1.Text, textBox2.Text, comboBox1.SelectedValue);
-            var response = await client.GetAsync(callPath);
-            Root taxRates = Helper.Helper.LoadTaxRate(await response.Content.ReadAsStringAsync());
-            textBox3.Text = Helper.Helper.ObjectToText(taxRates.rate);
+            try
+            {
+                var callPath = String.Format("https://localhost:7155/TaxCaller/taxRate?zipCode={0}&country={1}&calculatorId={2}", textBox1.Text, textBox2.Text, comboBox1.SelectedValue);
+                var response = await client.GetAsync(callPath);
+                Root taxRates = Helper.Helper.LoadTaxRate(await response.Content.ReadAsStringAsync());
+                textBox3.Text = Helper.Helper.ObjectToText(taxRates.rate);
+            }
+            catch (Exception ex)
+            {
+                textBox3.Text = $"There was an error, check the parameters. \r\nDetails: {ex.Message}";
+            }
         }
 
         public async void GetTaxes()
         {
-            var callPath = String.Format("https://localhost:7155/TaxCaller/calculateTax?country={0}&zipCode={1}&state={2}&destinationCountry={3}&destinationZip={4}&destinationState={5}&amount={6}&shipping={7}&calculatorId={8}", 
+            try
+            {
+                var callPath = String.Format("https://localhost:7155/TaxCaller/calculateTax?country={0}&zipCode={1}&state={2}&destinationCountry={3}&destinationZip={4}&destinationState={5}&amount={6}&shipping={7}&calculatorId={8}",
                 textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text, comboBox1.SelectedValue);
-            var response = await client.GetAsync(callPath);
-            TaxCalculation taxCalculation = Helper.Helper.LoadTaxCalculation(await response.Content.ReadAsStringAsync());
-            textBox13.Text = Helper.Helper.ObjectToText(taxCalculation.tax);
-        }
+                var response = await client.GetAsync(callPath);
+                TaxCalculation taxCalculation = Helper.Helper.LoadTaxCalculation(await response.Content.ReadAsStringAsync());
+                textBox13.Text = Helper.Helper.ObjectToText(taxCalculation.tax);
+            }
+            catch (Exception ex)
+            {
+                textBox13.Text = $"There was an error, check the parameters. \r\nDetails: {ex.Message}";
+            }
+         }
 
         private void button4_Click(object sender, EventArgs e)
         {
